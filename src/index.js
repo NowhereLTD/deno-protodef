@@ -1,4 +1,5 @@
 import { ProtoDef } from "./ProtoDef.class.js";
+import { ProtoDefCompiler } from "./Compiler/ProtoDefCompiler.class.js";
 import { Serializer } from "./Serializer/Serializer.class.js";
 import { Parser } from "./Serializer/Parser.class.js";
 import { FullPacketParser } from "./Serializer/FullPacketParser.class.js";
