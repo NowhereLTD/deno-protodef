@@ -1,10 +1,5 @@
-const { getField, getCount, sendCount, calcCount, tryDoc } = require('../utils')
-
-module.exports = {
-  array: [readArray, writeArray, sizeOfArray, require('../../ProtoDef/schemas/structures.json').array],
-  count: [readCount, writeCount, sizeOfCount, require('../../ProtoDef/schemas/structures.json').count],
-  container: [readContainer, writeContainer, sizeOfContainer, require('../../ProtoDef/schemas/structures.json').container]
-}
+import * as structures from "../../ProtoDef/schemas/structures.json" assert { type: "json" };
+import { getField, getCount, sendCount, calcCount, tryDoc } from "../utils.js";
 
 function readArray (buffer, offset, typeArgs, rootNode) {
   const results = {
@@ -87,4 +82,14 @@ function writeCount (value, buffer, offset, { countFor, type }, rootNode) {
 function sizeOfCount (value, { countFor, type }, rootNode) {
   // TODO : should I use value or getField().length ?
   return this.sizeOf(getField(countFor, rootNode).length, type, rootNode)
+}
+
+const array = [readArray, writeArray, sizeOfArray, structures.array];
+const count = [readCount, writeCount, sizeOfCount, structures.count];
+const container = [readContainer, writeContainer, sizeOfContainer, structures.container];
+
+export {
+  array,
+  count,
+  container
 }

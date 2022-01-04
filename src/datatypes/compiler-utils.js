@@ -1,5 +1,5 @@
-module.exports = {
-  Read: {
+export {
+  {
     pstring: ['parametrizable', (compiler, string) => {
       let code = ''
       if (string.countType) {
@@ -63,9 +63,9 @@ module.exports = {
       code += 'return { value: ' + JSON.stringify(sanitizeMappings(mapper.mappings)) + '[value] || value, size }'
       return compiler.wrapCode(code)
     }]
-  },
+  } as Read,
 
-  Write: {
+  {
     pstring: ['parametrizable', (compiler, string) => {
       let code = 'const length = Buffer.byteLength(value, \'utf8\')\n'
       if (string.countType) {
@@ -121,9 +121,9 @@ module.exports = {
       const code = 'return ' + compiler.callType(`${mappings}[value] || value`, mapper.type)
       return compiler.wrapCode(code)
     }]
-  },
+  } as Write,
 
-  SizeOf: {
+  {
     pstring: ['parametrizable', (compiler, string) => {
       let code = 'let size = Buffer.byteLength(value, \'utf8\')\n'
       if (string.countType) {
@@ -153,7 +153,7 @@ module.exports = {
       const code = 'return ' + compiler.callType(`${mappings}[value] || value`, mapper.type)
       return compiler.wrapCode(code)
     }]
-  }
+  } as SizeOf
 }
 
 // Convert hexadecimal keys to decimal

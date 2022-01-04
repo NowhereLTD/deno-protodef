@@ -1,7 +1,13 @@
-const { getFieldInfo, tryCatch } = require('./utils')
-const reduce = require('lodash.reduce')
-const get = require('lodash.get')
-const Validator = require('protodef-validator')
+import { getFieldInfo, tryCatch } from "./utils.js";
+import get from "https://deno.land/x/lodash@4.17.15-es/get.js"
+import reduce from "https://deno.land/x/lodash@4.17.15-es/reduce.js"
+import Validator from "./Validator.class.js";
+
+// data types
+import numeric from "./datatypes/numeric.js";
+import * as utils from "./datatypes/utils.js";
+import * as structures from "./datatypes/structures.js";
+import * as conditional from "./datatypes/conditional.js";
 
 function isFieldInfo (type) {
   return typeof type === 'string' ||
@@ -41,7 +47,7 @@ function extendType (functions, defaultTypeArgs) {
   }]
 }
 
-class ProtoDef {
+export class ProtoDef {
   constructor (validation = true) {
     this.types = {}
     this.validator = validation ? new Validator() : null
@@ -49,10 +55,10 @@ class ProtoDef {
   }
 
   addDefaultTypes () {
-    this.addTypes(require('./datatypes/numeric'))
-    this.addTypes(require('./datatypes/utils'))
-    this.addTypes(require('./datatypes/structures'))
-    this.addTypes(require('./datatypes/conditional'))
+    this.addTypes(numeric)
+    this.addTypes(utils)
+    this.addTypes(structures)
+    this.addTypes(conditional)
   }
 
   addProtocol (protocolData, path) {
@@ -165,5 +171,3 @@ class ProtoDef {
     }
   }
 }
-
-module.exports = ProtoDef

@@ -1,5 +1,5 @@
-module.exports = {
-  Read: {
+export {
+  {
     array: ['parametrizable', (compiler, array) => {
       let code = ''
       if (array.countType) {
@@ -64,9 +64,9 @@ module.exports = {
       code += 'return { value: { ' + names.join(', ') + ' }, size: ' + sizes.join(' + ') + '}'
       return compiler.wrapCode(code)
     }]
-  },
+  } as Read,
 
-  Write: {
+  {
     array: ['parametrizable', (compiler, array) => {
       let code = ''
       if (array.countType) {
@@ -108,9 +108,9 @@ module.exports = {
       code += 'return offset'
       return compiler.wrapCode(code)
     }]
-  },
+  } as Write,
 
-  SizeOf: {
+  {
     array: ['parametrizable', (compiler, array) => {
       let code = ''
       if (array.countType) {
@@ -158,7 +158,7 @@ module.exports = {
       code += 'return size'
       return compiler.wrapCode(code)
     }]
-  }
+  } as SizeOf
 }
 
 function containerInlining (values) {

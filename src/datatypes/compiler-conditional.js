@@ -1,5 +1,5 @@
-module.exports = {
-  Read: {
+export {
+  {
     switch: ['parametrizable', (compiler, struct) => {
       let compare = struct.compareTo ? struct.compareTo : struct.compareToValue
       const args = []
@@ -27,9 +27,9 @@ module.exports = {
       code += 'return { value: undefined, size: 1}'
       return compiler.wrapCode(code)
     }]
-  },
+  } as Read,
 
-  Write: {
+  {
     switch: ['parametrizable', (compiler, struct) => {
       let compare = struct.compareTo ? struct.compareTo : struct.compareToValue
       const args = []
@@ -58,9 +58,9 @@ module.exports = {
       code += 'return offset'
       return compiler.wrapCode(code)
     }]
-  },
+  } as Write,
 
-  SizeOf: {
+  {
     switch: ['parametrizable', (compiler, struct) => {
       let compare = struct.compareTo ? struct.compareTo : struct.compareToValue
       const args = []
@@ -86,5 +86,5 @@ module.exports = {
       code += 'return 1'
       return compiler.wrapCode(code)
     }]
-  }
+  } as SizeOf
 }

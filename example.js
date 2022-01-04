@@ -1,6 +1,6 @@
-const ProtoDef = require('protodef').ProtoDef
-const Serializer = require('protodef').Serializer
-const Parser = require('protodef').Parser
+import {ProtoDef} from "./src/index.js";
+import {Serializer} from "./src/index.js";
+import {Parser} from "./src/index.js";
 
 // the protocol can be in a separate json file
 const exampleProtocol = {
@@ -62,9 +62,9 @@ const exampleProtocol = {
 }
 
 const proto = new ProtoDef()
-proto.addTypes(exampleProtocol)
-const parser = new Parser(proto, 'packet')
-const serializer = new Serializer(proto, 'packet')
+proto.addTypes(exampleProtocol);
+const parser = new Parser(proto, 'packet');
+const serializer = new Serializer(proto, 'packet');
 
 serializer.write({
   name: 'entity_look',
@@ -74,9 +74,9 @@ serializer.write({
     pitch: 1,
     onGround: true
   }
-})
-serializer.pipe(parser)
+});
+serializer.pipe(parser);
 
 parser.on('data', function (chunk) {
   console.log(JSON.stringify(chunk, null, 2))
-})
+});

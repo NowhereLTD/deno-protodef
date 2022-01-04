@@ -1,12 +1,19 @@
-const ProtoDef = require('./protodef')
-const proto = new ProtoDef()
+import { ProtoDef } from "./ProtoDef.class.js";
+import { Serializer } from "./Serializer/Serializer.class.js";
+import { Parser } from "./Serializer/Parser.class.js";
+import { FullPacketParser } from "./Serializer/FullPacketParser.class.js";
+import { Compiler } from "./Compiler/Compiler.class.js";
+import * as utils from "./utils.js";
 
-module.exports = {
-  ProtoDef: ProtoDef,
-  Serializer: require('./serializer').Serializer,
-  Parser: require('./serializer').Parser,
-  FullPacketParser: require('./serializer').FullPacketParser,
-  Compiler: require('./compiler'),
-  types: proto.types,
-  utils: require('./utils')
-}
+const proto = new ProtoDef();
+const types = proto.types;
+
+export {
+  ProtoDef,
+  Serializer,
+  Parser,
+  FullPacketParser,
+  Compiler,
+  types,
+  utils
+};

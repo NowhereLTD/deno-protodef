@@ -1,17 +1,5 @@
-const assert = require('assert')
-
-const { getCount, sendCount, calcCount, PartialReadError } = require('../utils')
-
-module.exports = {
-  varint: [readVarInt, writeVarInt, sizeOfVarInt, require('../../ProtoDef/schemas/utils.json').varint],
-  bool: [readBool, writeBool, 1, require('../../ProtoDef/schemas/utils.json').bool],
-  pstring: [readPString, writePString, sizeOfPString, require('../../ProtoDef/schemas/utils.json').pstring],
-  buffer: [readBuffer, writeBuffer, sizeOfBuffer, require('../../ProtoDef/schemas/utils.json').buffer],
-  void: [readVoid, writeVoid, 0, require('../../ProtoDef/schemas/utils.json').void],
-  bitfield: [readBitField, writeBitField, sizeOfBitField, require('../../ProtoDef/schemas/utils.json').bitfield],
-  cstring: [readCString, writeCString, sizeOfCString, require('../../ProtoDef/schemas/utils.json').cstring],
-  mapper: [readMapper, writeMapper, sizeOfMapper, require('../../ProtoDef/schemas/utils.json').mapper]
-}
+import * as utils from "../../ProtoDef/schemas/utils.json" assert { type: "json" };
+import { getCount, sendCount, calcCount, PartialReadError } from "../utils.js";
 
 function mapperEquality (a, b) {
   return a === b || parseInt(a) === parseInt(b)
@@ -77,7 +65,9 @@ function readVarInt (buffer, offset) {
       }
     }
     shift += 7 // we only have 7 bits, MSB being the return-trigger
-    assert.ok(shift < 64, 'varint is too big') // Make sure our shift don't overflow.
+    if(shift >= 64) {
+      throw new Error("varint is too big");
+    }
   }
 }
 
@@ -259,4 +249,24 @@ function writeCString (value, buffer, offset) {
 function sizeOfCString (value) {
   const length = Buffer.byteLength(value, 'utf8')
   return length + 1
+}
+
+const varint = [readVarInt, writeVarInt, sizeOfVarInt, utils.varint];
+const bool = [readBool, writeBool, 1, utils.bool];
+const pstring = [readPString, writePString, sizeOfPString, utils.pstring];
+const buffer = [readBuffer, writeBuffer, sizeOfBuffer, utils.buffer];
+const voidData = [readVoid, writeVoid, 0, utils.void];
+const bitfield = [readBitField, writeBitField, sizeOfBitField, utils.bitfield];
+const cstring = [readCString, writeCString, sizeOfCString, utils.cstring];
+const mapper = [readMapper, writeMapper, sizeOfMapper, utils.mapper];
+
+export {
+  varint,
+  bool,
+  pstring,
+  buffer,
+  voidData as void,
+  bitfield,
+  cstring,
+  mapper
 }

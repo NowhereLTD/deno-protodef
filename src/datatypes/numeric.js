@@ -1,4 +1,5 @@
-const { PartialReadError } = require('../utils')
+import * as numeric from "../../ProtoDef/schemas/numeric.json" assert { type: "json" };
+import { PartialReadError } from "../utils.js";
 
 class BigIntExtended extends Array {
   valueOf () { return BigInt.asIntN(64, BigInt(this[0]) << 32n) | BigInt.asUintN(32, BigInt(this[1])) }
@@ -113,12 +114,12 @@ const nums = {
 }
 
 const types = Object.keys(nums).reduce((types, num) => {
-  types[num] = generateFunctions(nums[num][0], nums[num][1], nums[num][2], require('../../ProtoDef/schemas/numeric.json')[num])
+  types[num] = generateFunctions(nums[num][0], nums[num][1], nums[num][2], numeric[num])
   return types
 }, {})
-types.i64 = [readI64, writeI64, 8, require('../../ProtoDef/schemas/numeric.json').i64]
-types.li64 = [readLI64, writeLI64, 8, require('../../ProtoDef/schemas/numeric.json').li64]
-types.u64 = [readU64, writeU64, 8, require('../../ProtoDef/schemas/numeric.json').u64]
-types.lu64 = [readLU64, writeLU64, 8, require('../../ProtoDef/schemas/numeric.json').lu64]
+types.i64 = [readI64, writeI64, 8, numeric.i64]
+types.li64 = [readLI64, writeLI64, 8, numeric.li64]
+types.u64 = [readU64, writeU64, 8, numeric.u64]
+types.lu64 = [readLU64, writeLU64, 8, numeric.lu64]
 
-module.exports = types
+export default types;
